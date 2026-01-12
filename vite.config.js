@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-  base: './',
+  base: '/escape-lab/',
   build: {
-    outDir: 'dist'
+    outDir: 'docs'
   }
 })
