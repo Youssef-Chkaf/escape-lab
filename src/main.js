@@ -11,6 +11,9 @@ import { interactables, isInteractable, createDropZone, checkVictory, BALANCE_PO
 import { createStartScreen, createInventoryUI, updateInventoryUI, getDifficultyConfig, DIFFICULTIES } from './ui.js'
 import { initPuzzles, createTableauPuzzleUI, createCoffrePuzzleUI, showVictoryScreen } from './puzzles.js'
 
+// Import du modèle 3D
+import laboModel from '/assets/labo.glb?url'
+
 // État du jeu
 let currentPuzzle = 1; // 1 = balance, 2 = tableau, 3 = coffre, 4 = clé, 5 = cadenas
 let selectedDifficulty = 'easy';
@@ -914,7 +917,7 @@ function startGame(difficulty) {
 // --- CHARGEMENT DU MODELE ---
 const loader = new GLTFLoader();
 
-loader.load('/assets/labo.glb', (gltf) => {
+loader.load(laboModel, (gltf) => {
     const fullScene = gltf.scene;
     scene.add(fullScene);
 
