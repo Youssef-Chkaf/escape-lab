@@ -28,81 +28,80 @@ export const DIFFICULTIES = {
     }
 };
 
-let currentDifficulty = null;
-let onStartCallback = null;
+var currentDifficulty = null;
+var onStartCallback = null;
 
 // === ECRAN DE DEMARRAGE ===
 export function createStartScreen(onStart) {
     onStartCallback = onStart;
     
-    const overlay = document.createElement('div');
+    var overlay = document.createElement('div');
     overlay.id = 'start-screen';
-    overlay.innerHTML = `
-        + '<div class="scanlines"></div>'
+    overlay.innerHTML = '<div class="scanlines"></div>'
         + '<div class="noise"></div>'
         + '<div class="vignette"></div>'
         + '<div class="start-container">'
-        + '    <div class="logo-container">'
-        + '        <div class="biohazard-icon"></div>'
-        + '        <h1>ESCAPE LAB</h1>'
-        + '        <p class="lab-subtitle">Laboratoire de recherche abandonne - Secteur 7</p>'
-        + '    </div>'
-        + '    <div class="warning-tape">'
-        + '        <span>ZONE INTERDITE - ZONE INTERDITE - ZONE INTERDITE</span>'
-        + '    </div>'
-        + '    <div class="difficulty-section">'
-        + '        <h2>Choisissez votre niveau de difficulte</h2>'
-        + '        <div class="difficulty-cards">'
-        + '            <div class="difficulty-card" data-difficulty="easy">'
-        + '                <div class="card-label">FACILE</div>'
-        + '                <div class="card-icon"></div>'
-        + '                <h3>Apprenti</h3>'
-        + '                <p class="card-desc">Poids affiches sur les objets</p>'
-        + '                <p class="target">Objectif: 12g</p>'
-        + '            </div>'
-        + '            <div class="difficulty-card" data-difficulty="medium">'
-        + '                <div class="card-label">NORMAL</div>'
-        + '                <div class="card-icon"></div>'
-        + '                <h3>Chercheur</h3>'
-        + '                <p class="card-desc">Poids variables</p>'
-        + '                <p class="target">Objectif: 15g</p>'
-        + '            </div>'
-        + '            <div class="difficulty-card" data-difficulty="hard">'
-        + '                <div class="card-label">DIFFICILE</div>'
-        + '                <div class="card-icon"></div>'
-        + '                <h3>Expert</h3>'
-        + '                <p class="card-desc">Poids caches</p>'
-        + '                <p class="target">Objectif: 20g</p>'
-        + '            </div>'
-        + '        </div>'
-        + '    </div>'
-        + '    <button id="start-btn" disabled>Selectionnez un niveau</button>'
-        + '    <div class="footer-note">Derniere inspection: 12/03/1987 - Personnel evacue</div>'
+        + '<div class="logo-container">'
+        + '<div class="biohazard-icon"></div>'
+        + '<h1>ESCAPE LAB</h1>'
+        + '<p class="lab-subtitle">Laboratoire de recherche abandonne - Secteur 7</p>'
+        + '</div>'
+        + '<div class="warning-tape">'
+        + '<span>ZONE INTERDITE - ZONE INTERDITE - ZONE INTERDITE</span>'
+        + '</div>'
+        + '<div class="difficulty-section">'
+        + '<h2>Choisissez votre niveau de difficulte</h2>'
+        + '<div class="difficulty-cards">'
+        + '<div class="difficulty-card" data-difficulty="easy">'
+        + '<div class="card-label">FACILE</div>'
+        + '<div class="card-icon"></div>'
+        + '<h3>Apprenti</h3>'
+        + '<p class="card-desc">Poids affiches sur les objets</p>'
+        + '<p class="target">Objectif: 12g</p>'
+        + '</div>'
+        + '<div class="difficulty-card" data-difficulty="medium">'
+        + '<div class="card-label">NORMAL</div>'
+        + '<div class="card-icon"></div>'
+        + '<h3>Chercheur</h3>'
+        + '<p class="card-desc">Poids variables</p>'
+        + '<p class="target">Objectif: 15g</p>'
+        + '</div>'
+        + '<div class="difficulty-card" data-difficulty="hard">'
+        + '<div class="card-label">DIFFICILE</div>'
+        + '<div class="card-icon"></div>'
+        + '<h3>Expert</h3>'
+        + '<p class="card-desc">Poids caches</p>'
+        + '<p class="target">Objectif: 20g</p>'
+        + '</div>'
+        + '</div>'
+        + '</div>'
+        + '<button id="start-btn" disabled>Selectionnez un niveau</button>'
+        + '<div class="footer-note">Derniere inspection: 12/03/1987 - Personnel evacue</div>'
         + '</div>';
     
     addStartStyles();
     document.body.appendChild(overlay);
     
-    const cards = overlay.querySelectorAll('.difficulty-card');
-    const startBtn = overlay.querySelector('#start-btn');
+    var cards = overlay.querySelectorAll('.difficulty-card');
+    var startBtn = overlay.querySelector('#start-btn');
     
-    cards.forEach(card => {
-        card.addEventListener('click', () => {
-            cards.forEach(c => c.classList.remove('selected'));
+    cards.forEach(function(card) {
+        card.addEventListener('click', function() {
+            cards.forEach(function(c) { c.classList.remove('selected'); });
             card.classList.add('selected');
             currentDifficulty = card.dataset.difficulty;
             startBtn.disabled = false;
-            const levelNames = { easy: 'Facile', medium: 'Normal', hard: 'Difficile' };
+            var levelNames = { easy: 'Facile', medium: 'Normal', hard: 'Difficile' };
             startBtn.textContent = 'Commencer - Mode ' + levelNames[currentDifficulty];
         });
     });
     
-    startBtn.addEventListener('click', () => {
+    startBtn.addEventListener('click', function() {
         if (currentDifficulty && onStartCallback) {
             gsap.to(overlay, {
                 opacity: 0,
                 duration: 0.5,
-                onComplete: () => {
+                onComplete: function() {
                     overlay.remove();
                     onStartCallback(currentDifficulty);
                 }
@@ -113,10 +112,9 @@ export function createStartScreen(onStart) {
 
 function addStartStyles() {
     if (document.getElementById('start-styles')) return;
-    const style = document.createElement('style');
+    var style = document.createElement('style');
     style.id = 'start-styles';
-    style.textContent = `
-        + '@import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap");'
+    style.textContent = '@import url("https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap");'
         + '#start-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(ellipse at center, rgba(30, 25, 20, 0.95) 0%, rgba(15, 12, 10, 1) 100%); display: flex; justify-content: center; align-items: center; z-index: 10000; font-family: "Courier Prime", monospace; overflow: hidden; }'
         + '.scanlines { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: repeating-linear-gradient(0deg, rgba(0, 0, 0, 0.05) 0px, rgba(0, 0, 0, 0.05) 1px, transparent 1px, transparent 4px); pointer-events: none; z-index: 10; }'
         + '.noise { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; opacity: 0.6; z-index: 11; }'
@@ -151,7 +149,7 @@ function addStartStyles() {
 
 // === INVENTAIRE UI ===
 export function createInventoryUI() {
-    const inventory = document.createElement('div');
+    var inventory = document.createElement('div');
     inventory.id = 'inventory-ui';
     inventory.innerHTML = '<div class="inventory-header"><span class="inventory-title">Objets sur la balance</span><span class="inventory-weight">0g / <span id="target-weight">12</span>g</span></div><div class="inventory-slots" id="inventory-slots"></div>';
     
@@ -162,7 +160,7 @@ export function createInventoryUI() {
 
 function addInventoryStyles() {
     if (document.getElementById('inventory-styles')) return;
-    const style = document.createElement('style');
+    var style = document.createElement('style');
     style.id = 'inventory-styles';
     style.textContent = '#inventory-ui { position: fixed; top: 20px; right: 20px; background: linear-gradient(180deg, rgba(50, 45, 35, 0.95) 0%, rgba(35, 30, 25, 0.98) 100%); border: 2px solid #5a4a3a; border-radius: 8px; padding: 15px 18px; z-index: 1000; min-width: 280px; max-width: 320px; font-family: "Courier Prime", monospace; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); }'
         + '.inventory-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; padding-bottom: 10px; border-bottom: 1px solid #5a4a3a; }'
@@ -182,9 +180,9 @@ function addInventoryStyles() {
 
 // === MISE A JOUR INVENTAIRE ===
 export function updateInventoryUI(objectsOnBalance, totalWeight, targetWeight, onRemoveCallback) {
-    const slots = document.getElementById('inventory-slots');
-    const weightDisplay = document.querySelector('.inventory-weight');
-    const targetDisplay = document.getElementById('target-weight');
+    var slots = document.getElementById('inventory-slots');
+    var weightDisplay = document.querySelector('.inventory-weight');
+    var targetDisplay = document.getElementById('target-weight');
     
     if (!slots) return;
     if (targetDisplay) targetDisplay.textContent = targetWeight;
@@ -202,13 +200,13 @@ export function updateInventoryUI(objectsOnBalance, totalWeight, targetWeight, o
         return;
     }
     
-    objectsOnBalance.forEach(obj => {
-        const slot = document.createElement('div');
+    objectsOnBalance.forEach(function(obj) {
+        var slot = document.createElement('div');
         slot.className = 'inventory-slot';
-        const weight = obj.userData.weight || 0;
-        const displayName = obj.name.replace(/_/g, ' ').replace(/\d+$/, '').trim();
+        var weight = obj.userData.weight || 0;
+        var displayName = obj.name.replace(/_/g, ' ').replace(/\d+$/, '').trim();
         slot.innerHTML = '<span class="slot-name">' + displayName + '</span><span class="slot-weight">' + weight + 'g</span><span class="slot-remove">X</span>';
-        slot.addEventListener('click', () => { if (onRemoveCallback) onRemoveCallback(obj); });
+        slot.addEventListener('click', function() { if (onRemoveCallback) onRemoveCallback(obj); });
         slots.appendChild(slot);
     });
 }
