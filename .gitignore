@@ -12,6 +12,9 @@ dist
 dist-ssr
 *.local
 
+# Large GLB files (use docs/assets for deployment)
+public/assets/*.glb
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
